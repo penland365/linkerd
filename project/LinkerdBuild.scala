@@ -344,9 +344,13 @@ object LinkerdBuild extends Base {
       .withTests()
       .dependsOn(Namer.core, Namer.fs)
 
+    val k8sDarkMagic = projectDir("interpreter/k8s-dark-magic")
+      .withTests()
+      .dependsOn(Namer.core)
+
     val all = projectDir("interpreter")
       .settings(aggregateSettings)
-      .aggregate(namerd, fs)
+      .aggregate(namerd, fs, k8sDarkMagic)
   }
 
   object Linkerd {
@@ -482,7 +486,7 @@ object LinkerdBuild extends Base {
       // Bundle is includes all of the supported features:
       .configDependsOn(Bundle)(
         Namer.consul, Namer.k8s, Namer.marathon, Namer.serversets, Namer.zkLeader,
-        Interpreter.namerd, Interpreter.fs,
+        Interpreter.namerd, Interpreter.fs, Interpreter.k8sDarkMagic,
         Protocol.mux, Protocol.thrift,
         Announcer.serversets,
         Telemetry.core, Telemetry.tracelog,
@@ -566,6 +570,7 @@ object LinkerdBuild extends Base {
   val interpreter = Interpreter.all
   val interpreterNamerd = Interpreter.namerd
   val interpreterFs = Interpreter.fs
+  val interpreterK8sDarkMagic = Interpreter.k8sDarkMagic
 
   val linkerd = Linkerd.all
   val linkerdBenchmark = Linkerd.Protocol.benchmark
