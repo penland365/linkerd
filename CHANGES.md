@@ -7,6 +7,7 @@
 * `enableProbation` is now disabled by default on clients. It leads to
   unexpected behavior in environments that reuse IP:PORT pairs across
   services in a close time proximity.
+* Add `io.l5d.header` identifier for naming requests based on an HTTP header
 
 ## 0.7.4
 
